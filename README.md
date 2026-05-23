@@ -1,48 +1,23 @@
 # Brown Bear Rhoticity Pronunciation Website
 
-This version uses:
+This is the all-system-voice version.
 
-- real audio / Cambridge fallback for individual word pronunciation
-- system voice for full-page UK / US reading
-- embedded PDF page images
-- highlighted /r/ words
+## Features
 
-## Website files
+- UK / US word pronunciation using browser/device system voice
+- UK / US page-by-page reading using browser/device system voice
+- embedded Brown Bear PDF page images
+- highlighted /r/ words that link to pronunciation cards
+- Cambridge Dictionary reference links for IPA and pronunciation checking
+
+## Structure
 
 - `index.html`
-- `.nojekyll`
 - `README.md`
+- `.nojekyll`
 - `assets/pages/page-01.jpg` to `page-13.jpg`
 - `assets/pdf/brown-bear-pages-1-13.pdf`
 
-## Optional real human word audio files
+## Note
 
-Put MP3 files here if you want the word buttons to play inside the website:
-
-UK:
-- `assets/audio/uk/words/bear.mp3`
-- `assets/audio/uk/words/bird.mp3`
-- `assets/audio/uk/words/horse.mp3`
-- `assets/audio/uk/words/purple.mp3`
-- `assets/audio/uk/words/teacher.mp3`
-- `assets/audio/uk/words/red.mp3`
-- `assets/audio/uk/words/brown.mp3`
-- `assets/audio/uk/words/green.mp3`
-- `assets/audio/uk/words/frog.mp3`
-- `assets/audio/uk/words/children.mp3`
-
-US:
-- `assets/audio/us/words/bear.mp3`
-- `assets/audio/us/words/bird.mp3`
-- `assets/audio/us/words/horse.mp3`
-- `assets/audio/us/words/purple.mp3`
-- `assets/audio/us/words/teacher.mp3`
-- `assets/audio/us/words/red.mp3`
-- `assets/audio/us/words/brown.mp3`
-- `assets/audio/us/words/green.mp3`
-- `assets/audio/us/words/frog.mp3`
-- `assets/audio/us/words/children.mp3`
-
-If word audio files are missing, the website will offer to open Cambridge Dictionary as a fallback.
-
-Full-page reading uses system voice, so you do not need page MP3 files.
+All audio uses the browser/device Web Speech API. If UK voice sounds American, the device likely does not have an English (United Kingdom) voice installed.
