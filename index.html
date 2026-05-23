@@ -712,6 +712,73 @@
       border-color: var(--green);
     }
 
+
+    .audio-player-panel {
+      position: sticky;
+      bottom: 14px;
+      z-index: 20;
+      margin: 28px auto 0;
+      background: rgba(36,52,46,.94);
+      color: white;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 24px;
+      padding: 16px;
+      box-shadow: 0 18px 45px rgba(0,0,0,.18);
+      backdrop-filter: blur(14px);
+    }
+
+    .audio-player-panel h3 {
+      margin: 0 0 8px;
+      font-size: 17px;
+      letter-spacing: -.02em;
+    }
+
+    .audio-player-panel audio {
+      width: 100%;
+      height: 38px;
+    }
+
+    .audio-player-meta {
+      color: rgba(255,255,255,.78);
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .audio-help {
+      background: #fff9ef;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 14px 16px;
+      color: var(--muted);
+      font-size: 14px;
+      margin: 12px 0 16px;
+    }
+
+    .audio-help code {
+      background: #f4f1ea;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 2px 6px;
+      color: var(--ink);
+    }
+
+    .playlist-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .playlist-row button {
+      border: 1px solid rgba(255,255,255,.28);
+      background: rgba(255,255,255,.12);
+      color: white;
+      border-radius: 999px;
+      padding: 9px 13px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
     @media print {
       nav, .speak, .filter-bar { display: none; }
       body { background: white; }
@@ -729,7 +796,7 @@
         <h1>《Brown Bear》<br>英美 R 音發音差異整理</h1>
         <p class="subtitle">
           本頁整理繪本中含有字母 <b>r</b> 的單字，並參照 Cambridge Dictionary 的英式／美式音標寫法。
-          每個單字都連到 Cambridge Dictionary 的真人發音頁：<b>左邊看英腔 RP</b>，<b>右邊看美腔 GA</b>。
+          本版採用混合式設計：<b>單字發音</b>可使用真人 MP3 或 Cambridge Dictionary 真人發音頁；<b>整頁朗讀</b>則使用系統語音，方便直接在網頁內播放英腔／美腔。
         </p>
       </div>
       <aside class="hero-side">
@@ -741,7 +808,7 @@
           <span class="chip">UK RP</span>
           <span class="chip">US GA</span>
           <span class="chip">IPA</span>
-          <span class="chip">Audio Practice</span>
+          <span class="chip">Real Audio</span>
         </div>
       </aside>
     </div>
@@ -797,7 +864,7 @@
         <button class="filter-btn" onclick="filterCards('差異較小', this)">第二類：差異較小</button>
       </div>
 
-      <div class="cambridge-note">這些按鈕不使用手機系統語音，而是開啟 Cambridge Dictionary 的真人發音頁。進入頁面後可按 UK / US 喇叭聽原生音檔。</div>
+      <div class="cambridge-note">這些按鈕不使用手機系統語音。若你把真人 MP3 放到指定資料夾，按鈕會直接在本頁播放；若尚未放入音檔，會自動開啟 Cambridge Dictionary 的真人發音頁作為備用。</div>
 
       <div class="word-grid">
         
@@ -811,12 +878,12 @@
           <div class="accent-box uk">
             <div class="accent-label">英腔 RP</div>
             <div class="ipa">/beər/ 或 /bɛə/</div>
-            <a class="speak uk-btn audio-link" href="https://dictionary.cambridge.org/pronunciation/english/bear" target="_blank" rel="noopener">↗ Cambridge UK</a>
+            <button class="speak uk-btn" onclick="playWordAudio(\'bear\', \'uk\')">▶ UK Real Audio</button>
           </div>
           <div class="accent-box us">
             <div class="accent-label">美腔 GA</div>
             <div class="ipa">/ber/ 或 /bɛr/</div>
-            <a class="speak us-btn audio-link" href="https://dictionary.cambridge.org/pronunciation/english/bear" target="_blank" rel="noopener">↗ Cambridge US</a>
+            <button class="speak us-btn" onclick="playWordAudio(\'bear\', \'us\')">▶ US Real Audio</button>
           </div>
         </div>
         <p class="note">美音保留 r 音；RP 英音字尾 r 通常不發，結尾呈現 /ə/ 的滑音感。</p>
@@ -834,12 +901,12 @@
           <div class="accent-box uk">
             <div class="accent-label">英腔 RP</div>
             <div class="ipa">/bɜːd/</div>
-            <a class="speak uk-btn audio-link" href="https://dictionary.cambridge.org/pronunciation/english/bird" target="_blank" rel="noopener">↗ Cambridge UK</a>
+            <button class="speak uk-btn" onclick="playWordAudio(\'bird\', \'uk\')">▶ UK Real Audio</button>
           </div>
           <div class="accent-box us">
             <div class="accent-label">美腔 GA</div>
             <div class="ipa">/bɝːd/</div>
-            <a class="speak us-btn audio-link" href="https://dictionary.cambridge.org/pronunciation/english/bird" target="_blank" rel="noopener">↗ Cambridge US</a>
+            <button class="speak us-btn" onclick="playWordAudio(\'bird\', \'us\')">▶ US Real Audio</button>
           </div>
         </div>
         <p class="note">美音是 r-colored vowel；RP 英音是長元音 /ɜː/，沒有捲舌 r。</p>
@@ -857,12 +924,12 @@
           <div class="accent-box uk">
             <div class="accent-label">英腔 RP</div>
             <div class="ipa">/hɔːs/</div>
-            <a class="speak uk-btn audio-link" href="https://dictionary.cambridge.org/pronunciation/english/horse" target="_blank" rel="noopener">↗ Cambridge UK</a>
+            <button class="speak uk-btn" onclick="playWordAudio(\'horse\', \'uk\')">▶ UK Real Audio</button>
           </div>
           <div class="accent-box us">
             <div class="accent-label">美腔 GA</div>
             <div class="ipa">/hɔːrs/ 或 /hɔrs/</div>
-            <a class="speak us-btn audio-link" href="https://dictionary.cambridge.org/pronunciation/english/horse" target="_blank" rel="noopener">↗ Cambridge US</a>
+            <button class="speak us-btn" onclick="playWordAudio(\'horse\', \'us\')">▶ US Real Audio</button>
           </div>
         </div>
         <p class="note">美音保留 /r/；RP 英音省略 r，前面的母音拉長。</p>
@@ -880,12 +947,12 @@
           <div class="accent-box uk">
             <div class="accent-label">英腔 RP</div>
             <div class="ipa">/ˈpɜː.pəl/</div>
-            <a class="speak uk-btn audio-link" href="https://dictionary.cambridge.org/pronunciation/english/purple" target="_blank" rel="noopener">↗ Cambridge UK</a>
+            <button class="speak uk-btn" onclick="playWordAudio(\'purple\', \'uk\')">▶ UK Real Audio</button>
           </div>
           <div class="accent-box us">
             <div class="accent-label">美腔 GA</div>
             <div class="ipa">/ˈpɝː.pəl/</div>
-            <a class="speak us-btn audio-link" href="https://dictionary.cambridge.org/pronunciation/english/purple" target="_blank" rel="noopener">↗ Cambridge US</a>
+            <button class="speak us-btn" onclick="playWordAudio(\'purple\', \'us\')">▶ US Real Audio</button>
           </div>
         </div>
         <p class="note">第一音節差異最明顯：美音 /ɝː/；RP 英音 /ɜː/。</p>
@@ -903,12 +970,12 @@
           <div class="accent-box uk">
             <div class="accent-label">英腔 RP</div>
             <div class="ipa">/ˈtiː.tʃər/（RP 實際常讀 /ˈtiː.tʃə/）</div>
-            <a class="speak uk-btn audio-link" href="https://dictionary.cambridge.org/pronunciation/english/teacher" target="_blank" rel="noopener">↗ Cambridge UK</a>
+            <button class="speak uk-btn" onclick="playWordAudio(\'teacher\', \'uk\')">▶ UK Real Audio</button>
           </div>
           <div class="accent-box us">
             <div class="accent-label">美腔 GA</div>
             <div class="ipa">/ˈtiː.tʃɚ/</div>
-            <a class="speak us-btn audio-link" href="https://dictionary.cambridge.org/pronunciation/english/teacher" target="_blank" rel="noopener">↗ Cambridge US</a>
+            <button class="speak us-btn" onclick="playWordAudio(\'teacher\', \'us\')">▶ US Real Audio</button>
           </div>
         </div>
         <p class="note">Cambridge 用 raised r 標示英音 r 只在後接元音時發音；美音字尾為 /ɚ/。</p>
@@ -926,12 +993,12 @@
           <div class="accent-box uk">
             <div class="accent-label">英腔 RP</div>
             <div class="ipa">/red/</div>
-            <a class="speak uk-btn audio-link" href="https://dictionary.cambridge.org/pronunciation/english/red" target="_blank" rel="noopener">↗ Cambridge UK</a>
+            <button class="speak uk-btn" onclick="playWordAudio(\'red\', \'uk\')">▶ UK Real Audio</button>
           </div>
           <div class="accent-box us">
             <div class="accent-label">美腔 GA</div>
             <div class="ipa">/red/</div>
-            <a class="speak us-btn audio-link" href="https://dictionary.cambridge.org/pronunciation/english/red" target="_blank" rel="noopener">↗ Cambridge US</a>
+            <button class="speak us-btn" onclick="playWordAudio(\'red\', \'us\')">▶ US Real Audio</button>
           </div>
         </div>
         <p class="note">字首 r 後面接元音，英美都會發 /r/。</p>
@@ -949,12 +1016,12 @@
           <div class="accent-box uk">
             <div class="accent-label">英腔 RP</div>
             <div class="ipa">/braʊn/</div>
-            <a class="speak uk-btn audio-link" href="https://dictionary.cambridge.org/pronunciation/english/brown" target="_blank" rel="noopener">↗ Cambridge UK</a>
+            <button class="speak uk-btn" onclick="playWordAudio(\'brown\', \'uk\')">▶ UK Real Audio</button>
           </div>
           <div class="accent-box us">
             <div class="accent-label">美腔 GA</div>
             <div class="ipa">/braʊn/</div>
-            <a class="speak us-btn audio-link" href="https://dictionary.cambridge.org/pronunciation/english/brown" target="_blank" rel="noopener">↗ Cambridge US</a>
+            <button class="speak us-btn" onclick="playWordAudio(\'brown\', \'us\')">▶ US Real Audio</button>
           </div>
         </div>
         <p class="note">r 在輔音叢 /br/ 中，英美都會發出 r。</p>
@@ -972,12 +1039,12 @@
           <div class="accent-box uk">
             <div class="accent-label">英腔 RP</div>
             <div class="ipa">/ɡriːn/</div>
-            <a class="speak uk-btn audio-link" href="https://dictionary.cambridge.org/pronunciation/english/green" target="_blank" rel="noopener">↗ Cambridge UK</a>
+            <button class="speak uk-btn" onclick="playWordAudio(\'green\', \'uk\')">▶ UK Real Audio</button>
           </div>
           <div class="accent-box us">
             <div class="accent-label">美腔 GA</div>
             <div class="ipa">/ɡriːn/</div>
-            <a class="speak us-btn audio-link" href="https://dictionary.cambridge.org/pronunciation/english/green" target="_blank" rel="noopener">↗ Cambridge US</a>
+            <button class="speak us-btn" onclick="playWordAudio(\'green\', \'us\')">▶ US Real Audio</button>
           </div>
         </div>
         <p class="note">r 在輔音叢 /ɡr/ 中，英美都會發出 r。</p>
@@ -995,12 +1062,12 @@
           <div class="accent-box uk">
             <div class="accent-label">英腔 RP</div>
             <div class="ipa">/frɒɡ/</div>
-            <a class="speak uk-btn audio-link" href="https://dictionary.cambridge.org/pronunciation/english/frog" target="_blank" rel="noopener">↗ Cambridge UK</a>
+            <button class="speak uk-btn" onclick="playWordAudio(\'frog\', \'uk\')">▶ UK Real Audio</button>
           </div>
           <div class="accent-box us">
             <div class="accent-label">美腔 GA</div>
             <div class="ipa">/frɑːɡ/</div>
-            <a class="speak us-btn audio-link" href="https://dictionary.cambridge.org/pronunciation/english/frog" target="_blank" rel="noopener">↗ Cambridge US</a>
+            <button class="speak us-btn" onclick="playWordAudio(\'frog\', \'us\')">▶ US Real Audio</button>
           </div>
         </div>
         <p class="note">r 音本身英美都發；主要差異是母音 /ɒ/ 與 /ɑː/。</p>
@@ -1018,12 +1085,12 @@
           <div class="accent-box uk">
             <div class="accent-label">英腔 RP</div>
             <div class="ipa">/ˈtʃɪl.drən/</div>
-            <a class="speak uk-btn audio-link" href="https://dictionary.cambridge.org/pronunciation/english/children" target="_blank" rel="noopener">↗ Cambridge UK</a>
+            <button class="speak uk-btn" onclick="playWordAudio(\'children\', \'uk\')">▶ UK Real Audio</button>
           </div>
           <div class="accent-box us">
             <div class="accent-label">美腔 GA</div>
             <div class="ipa">/ˈtʃɪl.drən/</div>
-            <a class="speak us-btn audio-link" href="https://dictionary.cambridge.org/pronunciation/english/children" target="_blank" rel="noopener">↗ Cambridge US</a>
+            <button class="speak us-btn" onclick="playWordAudio(\'children\', \'us\')">▶ US Real Audio</button>
           </div>
         </div>
         <p class="note">r 在 /dr/ 輔音叢中，英美都會發音。</p>
@@ -1141,22 +1208,29 @@
     <section id="reader">
       <div class="section-head">
         <h2>繪本逐頁朗讀</h2>
-        <p>每頁的 /r/ 關鍵字已標記；點擊單字可跳到發音卡，再連到 Cambridge Dictionary 聽真人 UK / US 發音。</p>
+        <p>每頁的 /r/ 關鍵字已標記；本區恢復英腔／美腔整頁朗讀功能，整頁朗讀使用系統語音播放。</p>
       </div>
 
       <div class="method-card">
         <h2>PDF 來源與使用方式</h2>
         <p>
-          下方將 PDF 轉成逐頁圖片，方便在網頁中標記 /r/ 單字。
+          下方將 PDF 轉成逐頁圖片，並提供英腔／美腔的整頁系統朗讀。單字發音仍可使用真人音檔或 Cambridge 備用連結。
           標成綠色的單字是本頁正在分析的 r-related keywords。
         </p>
         <div class="pdf-actions">
           <a href="assets/pdf/brown-bear-pages-1-13.pdf" target="_blank" rel="noopener">Open Original PDF</a>
-          <button onclick="openAllCambridgeWords()">↗ Open all Cambridge word audios</button>
-          <a href="#words">Go to pronunciation cards</a>
+          <button onclick="readAllPagesSystem('en-GB')">▶ Read All UK</button>
+          <button onclick="readAllPagesSystem('en-US')">▶ Read All US</button>
+          <button onclick="stopSystemReading()">■ Stop Reading</button>
           
         </div>
         <p class="source-note">Source link provided by user: fliphtml5.com/jmlya/nquy/basic</p>
+      </div>
+
+      <div class="audio-help">
+        <b>發音規則：</b>整頁朗讀使用系統語音，所以不需要放整頁 MP3。
+        單字真人發音若要在網站內播放，請放在 <code>assets/audio/uk/words/bear.mp3</code>、<code>assets/audio/us/words/bear.mp3</code> 這種格式。
+        若單字 MP3 尚未放入，網站會提示是否開啟 Cambridge Dictionary 真人發音頁。
       </div>
 
       <div class="reader-shell" style="margin-top: 16px;">
@@ -1172,7 +1246,10 @@
           <div class="page-kicker">Page 01</div>
           <p class="story-line"><a class="r-mark" href="#word-brown" title="Go to Brown pronunciation">Brown</a> <a class="r-mark" href="#word-bear" title="Go to Bear pronunciation">Bear</a>, <a class="r-mark" href="#word-brown" title="Go to Brown pronunciation">Brown</a> <a class="r-mark" href="#word-bear" title="Go to Bear pronunciation">Bear</a>, What Do You See?</p>
           <div class="reader-controls">
-            <button class="mini-control cambridge-page-btn" onclick="openPageRWords(0)">↗ Open this page’s /r/ words</button>
+            <button class="speak uk-btn" onclick="speakPage(1, 'en-GB')">▶ Read Page UK</button>
+            <button class="speak us-btn" onclick="speakPage(1, 'en-US')">▶ Read Page US</button>
+            <button class="mini-control" onclick="stopSystemReading()">■ Stop Reading</button>
+            <button class="mini-control" onclick="openPageRWords(0)">↗ /r/ word audios</button>
           </div>
         </div>
       </article>
@@ -1185,7 +1262,10 @@
           <div class="page-kicker">Page 02</div>
           <p class="story-line"><a class="r-mark" href="#word-brown" title="Go to Brown pronunciation">Brown</a> <a class="r-mark" href="#word-bear" title="Go to Bear pronunciation">Bear</a>, <a class="r-mark" href="#word-brown" title="Go to Brown pronunciation">Brown</a> <a class="r-mark" href="#word-bear" title="Go to Bear pronunciation">Bear</a>, What do you see? I see a <a class="r-mark" href="#word-red" title="Go to Red pronunciation">red</a> <a class="r-mark" href="#word-bird" title="Go to Bird pronunciation">bird</a> looking at me.</p>
           <div class="reader-controls">
-            <button class="mini-control cambridge-page-btn" onclick="openPageRWords(1)">↗ Open this page’s /r/ words</button>
+            <button class="speak uk-btn" onclick="speakPage(2, 'en-GB')">▶ Read Page UK</button>
+            <button class="speak us-btn" onclick="speakPage(2, 'en-US')">▶ Read Page US</button>
+            <button class="mini-control" onclick="stopSystemReading()">■ Stop Reading</button>
+            <button class="mini-control" onclick="openPageRWords(1)">↗ /r/ word audios</button>
           </div>
         </div>
       </article>
@@ -1198,7 +1278,10 @@
           <div class="page-kicker">Page 03</div>
           <p class="story-line"><a class="r-mark" href="#word-red" title="Go to Red pronunciation">Red</a> <a class="r-mark" href="#word-bird" title="Go to Bird pronunciation">Bird</a>, <a class="r-mark" href="#word-red" title="Go to Red pronunciation">Red</a> <a class="r-mark" href="#word-bird" title="Go to Bird pronunciation">Bird</a>, What do you see? I see a yellow duck looking at me.</p>
           <div class="reader-controls">
-            <button class="mini-control cambridge-page-btn" onclick="openPageRWords(2)">↗ Open this page’s /r/ words</button>
+            <button class="speak uk-btn" onclick="speakPage(3, 'en-GB')">▶ Read Page UK</button>
+            <button class="speak us-btn" onclick="speakPage(3, 'en-US')">▶ Read Page US</button>
+            <button class="mini-control" onclick="stopSystemReading()">■ Stop Reading</button>
+            <button class="mini-control" onclick="openPageRWords(2)">↗ /r/ word audios</button>
           </div>
         </div>
       </article>
@@ -1211,7 +1294,10 @@
           <div class="page-kicker">Page 04</div>
           <p class="story-line">Yellow Duck, Yellow Duck, What do you see? I see a blue <a class="r-mark" href="#word-horse" title="Go to Horse pronunciation">horse</a> looking at me.</p>
           <div class="reader-controls">
-            <button class="mini-control cambridge-page-btn" onclick="openPageRWords(3)">↗ Open this page’s /r/ words</button>
+            <button class="speak uk-btn" onclick="speakPage(4, 'en-GB')">▶ Read Page UK</button>
+            <button class="speak us-btn" onclick="speakPage(4, 'en-US')">▶ Read Page US</button>
+            <button class="mini-control" onclick="stopSystemReading()">■ Stop Reading</button>
+            <button class="mini-control" onclick="openPageRWords(3)">↗ /r/ word audios</button>
           </div>
         </div>
       </article>
@@ -1224,7 +1310,10 @@
           <div class="page-kicker">Page 05</div>
           <p class="story-line">Blue <a class="r-mark" href="#word-horse" title="Go to Horse pronunciation">Horse</a>, Blue <a class="r-mark" href="#word-horse" title="Go to Horse pronunciation">Horse</a>, What do you see? I see a <a class="r-mark" href="#word-green" title="Go to Green pronunciation">green</a> <a class="r-mark" href="#word-frog" title="Go to Frog pronunciation">frog</a> looking at me.</p>
           <div class="reader-controls">
-            <button class="mini-control cambridge-page-btn" onclick="openPageRWords(4)">↗ Open this page’s /r/ words</button>
+            <button class="speak uk-btn" onclick="speakPage(5, 'en-GB')">▶ Read Page UK</button>
+            <button class="speak us-btn" onclick="speakPage(5, 'en-US')">▶ Read Page US</button>
+            <button class="mini-control" onclick="stopSystemReading()">■ Stop Reading</button>
+            <button class="mini-control" onclick="openPageRWords(4)">↗ /r/ word audios</button>
           </div>
         </div>
       </article>
@@ -1237,7 +1326,10 @@
           <div class="page-kicker">Page 06</div>
           <p class="story-line"><a class="r-mark" href="#word-green" title="Go to Green pronunciation">Green</a> <a class="r-mark" href="#word-frog" title="Go to Frog pronunciation">Frog</a>, <a class="r-mark" href="#word-green" title="Go to Green pronunciation">Green</a> <a class="r-mark" href="#word-frog" title="Go to Frog pronunciation">Frog</a>, What do you see? I see a <a class="r-mark" href="#word-purple" title="Go to Purple pronunciation">purple</a> cat looking at me.</p>
           <div class="reader-controls">
-            <button class="mini-control cambridge-page-btn" onclick="openPageRWords(5)">↗ Open this page’s /r/ words</button>
+            <button class="speak uk-btn" onclick="speakPage(6, 'en-GB')">▶ Read Page UK</button>
+            <button class="speak us-btn" onclick="speakPage(6, 'en-US')">▶ Read Page US</button>
+            <button class="mini-control" onclick="stopSystemReading()">■ Stop Reading</button>
+            <button class="mini-control" onclick="openPageRWords(5)">↗ /r/ word audios</button>
           </div>
         </div>
       </article>
@@ -1250,7 +1342,10 @@
           <div class="page-kicker">Page 07</div>
           <p class="story-line"><a class="r-mark" href="#word-purple" title="Go to Purple pronunciation">Purple</a> Cat, <a class="r-mark" href="#word-purple" title="Go to Purple pronunciation">Purple</a> Cat, What do you see? I see a white dog looking at me.</p>
           <div class="reader-controls">
-            <button class="mini-control cambridge-page-btn" onclick="openPageRWords(6)">↗ Open this page’s /r/ words</button>
+            <button class="speak uk-btn" onclick="speakPage(7, 'en-GB')">▶ Read Page UK</button>
+            <button class="speak us-btn" onclick="speakPage(7, 'en-US')">▶ Read Page US</button>
+            <button class="mini-control" onclick="stopSystemReading()">■ Stop Reading</button>
+            <button class="mini-control" onclick="openPageRWords(6)">↗ /r/ word audios</button>
           </div>
         </div>
       </article>
@@ -1263,7 +1358,10 @@
           <div class="page-kicker">Page 08</div>
           <p class="story-line">White Dog, White Dog, What do you see? I see a black sheep looking at me.</p>
           <div class="reader-controls">
-            <button class="mini-control cambridge-page-btn" onclick="openPageRWords(7)">↗ Open this page’s /r/ words</button>
+            <button class="speak uk-btn" onclick="speakPage(8, 'en-GB')">▶ Read Page UK</button>
+            <button class="speak us-btn" onclick="speakPage(8, 'en-US')">▶ Read Page US</button>
+            <button class="mini-control" onclick="stopSystemReading()">■ Stop Reading</button>
+            <button class="mini-control" onclick="openPageRWords(7)">↗ /r/ word audios</button>
           </div>
         </div>
       </article>
@@ -1276,7 +1374,10 @@
           <div class="page-kicker">Page 09</div>
           <p class="story-line">Black Sheep, Black Sheep, What do you see? I see a goldfish looking at me.</p>
           <div class="reader-controls">
-            <button class="mini-control cambridge-page-btn" onclick="openPageRWords(8)">↗ Open this page’s /r/ words</button>
+            <button class="speak uk-btn" onclick="speakPage(9, 'en-GB')">▶ Read Page UK</button>
+            <button class="speak us-btn" onclick="speakPage(9, 'en-US')">▶ Read Page US</button>
+            <button class="mini-control" onclick="stopSystemReading()">■ Stop Reading</button>
+            <button class="mini-control" onclick="openPageRWords(8)">↗ /r/ word audios</button>
           </div>
         </div>
       </article>
@@ -1289,7 +1390,10 @@
           <div class="page-kicker">Page 10</div>
           <p class="story-line">Goldfish, Goldfish, What do you see? I see a <a class="r-mark" href="#word-teacher" title="Go to Teacher pronunciation">teacher</a> looking at me.</p>
           <div class="reader-controls">
-            <button class="mini-control cambridge-page-btn" onclick="openPageRWords(9)">↗ Open this page’s /r/ words</button>
+            <button class="speak uk-btn" onclick="speakPage(10, 'en-GB')">▶ Read Page UK</button>
+            <button class="speak us-btn" onclick="speakPage(10, 'en-US')">▶ Read Page US</button>
+            <button class="mini-control" onclick="stopSystemReading()">■ Stop Reading</button>
+            <button class="mini-control" onclick="openPageRWords(9)">↗ /r/ word audios</button>
           </div>
         </div>
       </article>
@@ -1302,7 +1406,10 @@
           <div class="page-kicker">Page 11</div>
           <p class="story-line"><a class="r-mark" href="#word-teacher" title="Go to Teacher pronunciation">Teacher</a>, <a class="r-mark" href="#word-teacher" title="Go to Teacher pronunciation">Teacher</a>, What do you see? I see <a class="r-mark" href="#word-children" title="Go to Children pronunciation">children</a> looking at me.</p>
           <div class="reader-controls">
-            <button class="mini-control cambridge-page-btn" onclick="openPageRWords(10)">↗ Open this page’s /r/ words</button>
+            <button class="speak uk-btn" onclick="speakPage(11, 'en-GB')">▶ Read Page UK</button>
+            <button class="speak us-btn" onclick="speakPage(11, 'en-US')">▶ Read Page US</button>
+            <button class="mini-control" onclick="stopSystemReading()">■ Stop Reading</button>
+            <button class="mini-control" onclick="openPageRWords(10)">↗ /r/ word audios</button>
           </div>
         </div>
       </article>
@@ -1315,7 +1422,10 @@
           <div class="page-kicker">Page 12</div>
           <p class="story-line"><a class="r-mark" href="#word-children" title="Go to Children pronunciation">Children</a>, <a class="r-mark" href="#word-children" title="Go to Children pronunciation">Children</a>, What do you see?</p>
           <div class="reader-controls">
-            <button class="mini-control cambridge-page-btn" onclick="openPageRWords(11)">↗ Open this page’s /r/ words</button>
+            <button class="speak uk-btn" onclick="speakPage(12, 'en-GB')">▶ Read Page UK</button>
+            <button class="speak us-btn" onclick="speakPage(12, 'en-US')">▶ Read Page US</button>
+            <button class="mini-control" onclick="stopSystemReading()">■ Stop Reading</button>
+            <button class="mini-control" onclick="openPageRWords(11)">↗ /r/ word audios</button>
           </div>
         </div>
       </article>
@@ -1328,7 +1438,10 @@
           <div class="page-kicker">Page 13</div>
           <p class="story-line">We see a <a class="r-mark" href="#word-brown" title="Go to Brown pronunciation">brown</a> <a class="r-mark" href="#word-bear" title="Go to Bear pronunciation">bear</a>, a <a class="r-mark" href="#word-red" title="Go to Red pronunciation">red</a> <a class="r-mark" href="#word-bird" title="Go to Bird pronunciation">bird</a>, a yellow duck, a blue <a class="r-mark" href="#word-horse" title="Go to Horse pronunciation">horse</a>, a <a class="r-mark" href="#word-green" title="Go to Green pronunciation">green</a> <a class="r-mark" href="#word-frog" title="Go to Frog pronunciation">frog</a>, a <a class="r-mark" href="#word-purple" title="Go to Purple pronunciation">purple</a> cat, a white dog, a black sheep, a goldfish, and a <a class="r-mark" href="#word-teacher" title="Go to Teacher pronunciation">teacher</a> looking at us. That&#x27;s what we see.</p>
           <div class="reader-controls">
-            <button class="mini-control cambridge-page-btn" onclick="openPageRWords(12)">↗ Open this page’s /r/ words</button>
+            <button class="speak uk-btn" onclick="speakPage(13, 'en-GB')">▶ Read Page UK</button>
+            <button class="speak us-btn" onclick="speakPage(13, 'en-US')">▶ Read Page US</button>
+            <button class="mini-control" onclick="stopSystemReading()">■ Stop Reading</button>
+            <button class="mini-control" onclick="openPageRWords(12)">↗ /r/ word audios</button>
           </div>
         </div>
       </article>
@@ -1347,7 +1460,7 @@
         <h2>音標與規則參考方式</h2>
         <p>
           本頁的單字音標主要參照 Cambridge Dictionary 的 pronunciation 頁面。
-          Cambridge Pronunciation 頁面提供英式與美式音標及真人發音；
+          Cambridge Pronunciation 頁面提供英式與美式音標及真人發音；本網站的單字備用連結會導向這些頁面。
           另外，Cambridge 的 phonetic symbols 說明頁可用來查 IPA 符號。
           關於英音中 <span class="ipa">(r)</span> 的標示，Oxford Learner's Dictionaries 的 pronunciation guide 也說明：
           British pronunciation 的 <span class="ipa">(r)</span> 通常只有在下一個字以元音開頭時才發音，而 American English 的 r 通常都要發出。
@@ -1404,14 +1517,202 @@
     </section>
   </main>
 
+
+  <div class="shell audio-player-panel" id="realAudioPanel">
+    <h3>單字真人發音播放器</h3>
+    <div class="audio-player-meta" id="audioNowPlaying">尚未播放單字音檔</div>
+    <audio id="realAudio" controls preload="none"></audio>
+    <div class="playlist-row">
+      <button onclick="stopRealAudio()">Stop Word Audio</button>
+      <button onclick="playNextInQueue()">Next</button>
+    </div>
+  </div>
+
+
   <footer>
     Brown Bear Rhoticity Pronunciation Website｜Cambridge Audio Links｜GitHub Pages Ready
   </footer>
 
   <script>
 
+
     const cambridgeUrls = {'bear': 'https://dictionary.cambridge.org/pronunciation/english/bear', 'bird': 'https://dictionary.cambridge.org/pronunciation/english/bird', 'horse': 'https://dictionary.cambridge.org/pronunciation/english/horse', 'purple': 'https://dictionary.cambridge.org/pronunciation/english/purple', 'teacher': 'https://dictionary.cambridge.org/pronunciation/english/teacher', 'red': 'https://dictionary.cambridge.org/pronunciation/english/red', 'brown': 'https://dictionary.cambridge.org/pronunciation/english/brown', 'green': 'https://dictionary.cambridge.org/pronunciation/english/green', 'frog': 'https://dictionary.cambridge.org/pronunciation/english/frog', 'children': 'https://dictionary.cambridge.org/pronunciation/english/children'};
-    const pageRWords = [['brown', 'bear'], ['brown', 'bear', 'red', 'bird'], ['red', 'bird'], ['horse'], ['horse', 'green', 'frog'], ['green', 'frog', 'purple'], ['purple'], [], [], ['teacher'], ['teacher', 'children'], ['children'], ['brown', 'bear', 'red', 'bird', 'horse', 'green', 'frog', 'purple', 'teacher']];
+
+
+    const pageTexts = ['Brown Bear, Brown Bear, What Do You See?', 'Brown Bear, Brown Bear, What do you see? I see a red bird looking at me.', 'Red Bird, Red Bird, What do you see? I see a yellow duck looking at me.', 'Yellow Duck, Yellow Duck, What do you see? I see a blue horse looking at me.', 'Blue Horse, Blue Horse, What do you see? I see a green frog looking at me.', 'Green Frog, Green Frog, What do you see? I see a purple cat looking at me.', 'Purple Cat, Purple Cat, What do you see? I see a white dog looking at me.', 'White Dog, White Dog, What do you see? I see a black sheep looking at me.', 'Black Sheep, Black Sheep, What do you see? I see a goldfish looking at me.', 'Goldfish, Goldfish, What do you see? I see a teacher looking at me.', 'Teacher, Teacher, What do you see? I see children looking at me.', 'Children, Children, What do you see?', "We see a brown bear, a red bird, a yellow duck, a blue horse, a green frog, a purple cat, a white dog, a black sheep, a goldfish, and a teacher looking at us. That's what we see."];
+    let systemVoices = [];
+
+    function loadSystemVoices() {
+      if ("speechSynthesis" in window) {
+        systemVoices = window.speechSynthesis.getVoices();
+      }
+    }
+
+    if ("speechSynthesis" in window) {
+      loadSystemVoices();
+      window.speechSynthesis.onvoiceschanged = loadSystemVoices;
+      setTimeout(loadSystemVoices, 500);
+      setTimeout(loadSystemVoices, 1500);
+    }
+
+    function pickSystemVoice(lang) {
+      if (!systemVoices.length) loadSystemVoices();
+      const lowerLang = lang.toLowerCase();
+
+      if (lang === "en-GB") {
+        return systemVoices.find(v => (v.lang || "").toLowerCase() === "en-gb") ||
+               systemVoices.find(v => (v.name || "").toLowerCase().includes("british") || (v.name || "").toLowerCase().includes("uk")) ||
+               null;
+      }
+
+      if (lang === "en-US") {
+        return systemVoices.find(v => (v.lang || "").toLowerCase() === "en-us") ||
+               systemVoices.find(v => (v.name || "").toLowerCase().includes("united states") || (v.name || "").toLowerCase().includes("us")) ||
+               null;
+      }
+
+      return systemVoices.find(v => (v.lang || "").toLowerCase().startsWith(lowerLang.split("-")[0])) || null;
+    }
+
+    function speakTextSystem(text, lang) {
+      if (!("speechSynthesis" in window)) {
+        alert("你的瀏覽器不支援整頁朗讀功能，請改用 Chrome 或 Edge。");
+        return;
+      }
+
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = lang;
+      utterance.rate = 0.74;
+      utterance.pitch = 1;
+
+      const voice = pickSystemVoice(lang);
+      if (voice) utterance.voice = voice;
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function speakPage(pageNumber, lang) {
+      const text = pageTexts[pageNumber - 1];
+      if (!text) return;
+      speakTextSystem(text, lang);
+    }
+
+    function readAllPagesSystem(lang) {
+      if (!("speechSynthesis" in window)) {
+        alert("你的瀏覽器不支援整頁朗讀功能，請改用 Chrome 或 Edge。");
+        return;
+      }
+
+      window.speechSynthesis.cancel();
+      const voice = pickSystemVoice(lang);
+
+      pageTexts.forEach(text => {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = lang;
+        utterance.rate = 0.74;
+        utterance.pitch = 1;
+        if (voice) utterance.voice = voice;
+        window.speechSynthesis.speak(utterance);
+      });
+    }
+
+    function stopSystemReading() {
+      if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+    }
+
+
+    const pageRWords = [
+      ["brown","bear"],
+      ["brown","bear","red","bird"],
+      ["red","bird"],
+      ["horse"],
+      ["horse","green","frog"],
+      ["green","frog","purple"],
+      ["purple"],
+      [],
+      [],
+      ["teacher"],
+      ["teacher","children"],
+      ["children"],
+      ["brown","bear","red","bird","horse","green","frog","purple","teacher"]
+    ];
+
+    let audioQueue = [];
+    let queueIndex = 0;
+
+    function setNowPlaying(text) {
+      const el = document.getElementById("audioNowPlaying");
+      if (el) el.textContent = text;
+    }
+
+    function playAudioFile(src, label, fallbackUrl = null) {
+      const audio = document.getElementById("realAudio");
+      if (!audio) return;
+
+      audio.pause();
+      audio.src = src;
+      audio.load();
+      setNowPlaying(label);
+
+      audio.onerror = function() {
+        audio.onerror = null;
+        setNowPlaying("找不到音檔：" + src);
+        if (fallbackUrl) {
+          const ok = confirm("目前網站裡還沒有這個真人音檔。要開啟 Cambridge Dictionary 真人發音頁嗎？");
+          if (ok) window.open(fallbackUrl, "_blank", "noopener");
+        } else {
+          alert("目前網站裡還沒有這個真人音檔：\n" + src + "\n\n請依照頁面中的資料夾規則上傳 MP3。");
+        }
+      };
+
+      audio.onended = function() {
+        playNextInQueue();
+      };
+
+      audio.play().catch(() => {
+        setNowPlaying("瀏覽器阻擋自動播放，請手動按播放器的播放鍵。");
+      });
+    }
+
+    function playWordAudio(word, accent) {
+      const lower = word.toLowerCase();
+      const src = `assets/audio/${accent}/words/${lower}.mp3`;
+      const accentLabel = accent === "uk" ? "UK" : "US";
+      const fallback = cambridgeUrls[lower] || null;
+      playAudioFile(src, `${accentLabel} word audio: ${word}`, fallback);
+    }
+
+      queueIndex = 0;
+      playQueuedAudio();
+    }
+
+    function playQueuedAudio() {
+      if (!audioQueue.length || queueIndex >= audioQueue.length) {
+        setNowPlaying("整本朗讀已結束");
+        audioQueue = [];
+        queueIndex = 0;
+        return;
+      }
+      const item = audioQueue[queueIndex];
+      queueIndex += 1;
+      playAudioFile(item.src, item.label);
+    }
+
+    function playNextInQueue() {
+      if (audioQueue.length) playQueuedAudio();
+    }
+
+    function stopRealAudio() {
+      audioQueue = [];
+      queueIndex = 0;
+      const audio = document.getElementById("realAudio");
+      if (audio) {
+        audio.pause();
+        audio.currentTime = 0;
+      }
+      setNowPlaying("已停止播放");
+    }
 
     function openCambridgeWord(word) {
       const url = cambridgeUrls[word.toLowerCase()];
@@ -1430,11 +1731,6 @@
       });
     }
 
-    function openAllCambridgeWords() {
-      Object.keys(cambridgeUrls).forEach((word, i) => {
-        setTimeout(() => openCambridgeWord(word), i * 250);
-      });
-    }
 
     function filterCards(kind, btn) {
       document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
